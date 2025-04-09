@@ -10,7 +10,7 @@ Este projeto é o início de um sistema de consórcio desenvolvido em Java com S
 - **Spring Boot**
 - **Spring Data JPA**
 - **Hibernate**
-- **Banco de Dados Relacional (MySQL ou PostgreSQL)**
+- **MySQL**
 
 ---
 
