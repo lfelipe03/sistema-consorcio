@@ -1,7 +1,6 @@
 package com.luizfelipe.sistema_consorcio.model;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDate;
 
@@ -21,6 +20,9 @@ public class Cliente {
     private String telefone;
     private LocalDate dataNascimento;
     private String profissao;
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
 
     public Cliente (){
 
@@ -105,5 +107,13 @@ public class Cliente {
 
     public void setProfissao(String profissao) {
         this.profissao = profissao;
+    }
+
+    public Vendedor getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Vendedor vendedor) {
+        this.vendedor = vendedor;
     }
 }

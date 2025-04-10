@@ -5,5 +5,6 @@ public record RepresentanteDTO(
         String cnpj,
         String endereco,
         String telefone,
-        String email
+        String email,
+        Long administradoraId
 ) {}

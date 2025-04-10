@@ -31,18 +31,5 @@ public class AdministradoraController {
         return ResponseEntity.ok(adminstradora);
     }
 
-    @PostMapping("cadastrar-representante")
-    public ResponseEntity<String> cadastrarRepresentante(@RequestBody RepresentanteDTO representanteDTO) {
-        administradoraService.cadastrarRepresentante(representanteDTO);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body("Representante criado com sucesso pela administradora!");
-    }
-
-    @GetMapping("listar-representante")
-    public ResponseEntity<List<RepresentanteDTO>> listarRepresentante() {
-        List<RepresentanteDTO> representante = administradoraService.listarRepresentante();
-
-        return ResponseEntity.ok(representante);
-    }
 
 }

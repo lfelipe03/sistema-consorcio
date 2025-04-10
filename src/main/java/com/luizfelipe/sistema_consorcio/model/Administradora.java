@@ -1,12 +1,11 @@
 package com.luizfelipe.sistema_consorcio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -21,6 +20,10 @@ public class Administradora {
     private String email;
     private String telefone;
     private BigDecimal comissaoAdministradora;
+
+    @OneToMany(mappedBy = "administradora", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Representante> representantes = new ArrayList<>();
+
 
     public Administradora() {
     }
@@ -89,5 +92,13 @@ public class Administradora {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public List<Representante> getRepresentantes() {
+        return representantes;
+    }
+
+    public void setRepresentantes(List<Representante> representantes) {
+        this.representantes = representantes;
     }
 }

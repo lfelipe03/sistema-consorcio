@@ -1,7 +1,9 @@
 package com.luizfelipe.sistema_consorcio.service;
 
 import com.luizfelipe.sistema_consorcio.dto.VendedorDTO;
+import com.luizfelipe.sistema_consorcio.model.Representante;
 import com.luizfelipe.sistema_consorcio.model.Vendedor;
+import com.luizfelipe.sistema_consorcio.repository.RepresentanteRepository;
 import com.luizfelipe.sistema_consorcio.repository.VendedorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +17,25 @@ public class VendedorService {
     @Autowired
     private VendedorRepository vendedorRepository;
 
-    public void cadastrarVendedor (VendedorDTO dto) {
+    @Autowired
+    private RepresentanteRepository representanteRepository;
+
+    public void cadastrarVendedor(VendedorDTO dto) {
         Vendedor vendedor = new Vendedor();
+
+        Representante representante = representanteRepository.findById(dto.representanteId())
+                .orElseThrow(() -> new RuntimeException("Administradora nao encontrada"));
+
         vendedor.setNome(dto.nome());
         vendedor.setCpf(dto.cpf());
         vendedor.setRg(dto.rg());
-        vendedor.setEmail(dto.email());
         vendedor.setTelefone(dto.telefone());
+        vendedor.setEmail(dto.email());
+
+        vendedor.setRepresentante(representante);
+
+        vendedorRepository.save(vendedor);
+
     }
 
     public List<VendedorDTO> listarVendedores() {
@@ -33,9 +47,9 @@ public class VendedorService {
                         v.getCpf(),
                         v.getRg(),
                         v.getEmail(),
-                        v.getTelefone()
+                        v.getTelefone(),
+                        v.getRepresentante().getId()
                 ))
                 .collect(Collectors.toList());
     }
-
 }

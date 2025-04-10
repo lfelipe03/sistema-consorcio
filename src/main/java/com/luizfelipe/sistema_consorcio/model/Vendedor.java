@@ -5,6 +5,8 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vendedores")
@@ -22,6 +24,13 @@ public class Vendedor {
     private LocalDate dataNascimento;
     private BigDecimal comissaoVendedor;
     private Integer codigoVendedor;
+    @ManyToOne
+    @JoinColumn(name = "representante_id")
+    private Representante representante;
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Cliente> clientes = new ArrayList<>();
+
+
 
     public Vendedor() {
 
@@ -120,5 +129,19 @@ public class Vendedor {
         this.codigoVendedor = codigoVendedor;
     }
 
+    public Representante getRepresentante() {
+        return representante;
+    }
 
+    public void setRepresentante(Representante representante) {
+        this.representante = representante;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public void setClientes(List<Cliente> clientes) {
+        this.clientes = clientes;
+    }
 }

@@ -19,9 +19,6 @@ public class AdministradoraService {
     AdministradoraRepository administradoraRepository;
 
     @Autowired
-    RepresentanteService representanteService;
-
-    @Autowired
     RepresentanteRepository representanteRepository;
 
     public void cadastroAdministradora(AdminstradoraDTO dto) {
@@ -50,22 +47,9 @@ public class AdministradoraService {
                 )).collect(Collectors.toList());
     }
 
-    public void cadastrarRepresentante(RepresentanteDTO dto) {
-        representanteService.salvarRepresentante(dto);
-    }
 
-    public List<RepresentanteDTO> listarRepresentante() {
-        List<Representante> representantes = representanteRepository.findAll();
 
-        return representantes.stream()
-                .map(r -> new RepresentanteDTO(
-                        r.getNomeRepresentante(),
-                        r.getCnpj(),
-                        r.getEndereco(),
-                        r.getEmail(),
-                        r.getTelefone()
-                )).collect(Collectors.toList());
-    }
+
 
 
 }

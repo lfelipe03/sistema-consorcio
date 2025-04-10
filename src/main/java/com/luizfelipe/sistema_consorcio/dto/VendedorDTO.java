@@ -5,5 +5,6 @@ public record VendedorDTO(
                           String cpf,
                           String rg,
                           String email,
-                          String telefone) {
+                          String telefone,
+                          Long representanteId) {
 }

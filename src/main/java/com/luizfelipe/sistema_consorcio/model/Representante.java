@@ -3,6 +3,8 @@ package com.luizfelipe.sistema_consorcio.model;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "representantes")
@@ -17,6 +19,11 @@ public class Representante {
     private String email;
     private String telefone;
     private BigDecimal comissaoRepresentante;
+    @ManyToOne
+    @JoinColumn(name = "administradora_id")
+    private Administradora administradora;
+    @OneToMany(mappedBy = "representante", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Vendedor> vendedores = new ArrayList<>();
 
     public Representante() {
     }
@@ -85,5 +92,21 @@ public class Representante {
 
     public void setComissaoRepresentante(BigDecimal comissaoRepresentante) {
         this.comissaoRepresentante = comissaoRepresentante;
+    }
+
+    public Administradora getAdministradora() {
+        return administradora;
+    }
+
+    public void setAdministradora(Administradora administradora) {
+        this.administradora = administradora;
+    }
+
+    public List<Vendedor> getVendedores() {
+        return vendedores;
+    }
+
+    public void setVendedores(List<Vendedor> vendedores) {
+        this.vendedores = vendedores;
     }
 }
