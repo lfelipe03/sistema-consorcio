@@ -27,8 +27,10 @@ public class Vendedor {
     @ManyToOne
     @JoinColumn(name = "representante_id")
     private Representante representante;
-    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "vendedor")
     private List<Cliente> clientes = new ArrayList<>();
+    @OneToMany(mappedBy = "vendedor")
+    private List<Contrato> contratos = new ArrayList<>();
 
 
 

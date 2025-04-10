@@ -21,7 +21,7 @@ public class Administradora {
     private String telefone;
     private BigDecimal comissaoAdministradora;
 
-    @OneToMany(mappedBy = "administradora", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "administradora")
     private List<Representante> representantes = new ArrayList<>();
 
 

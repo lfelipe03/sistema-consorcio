@@ -22,7 +22,7 @@ public class Representante {
     @ManyToOne
     @JoinColumn(name = "administradora_id")
     private Administradora administradora;
-    @OneToMany(mappedBy = "representante", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "representante")
     private List<Vendedor> vendedores = new ArrayList<>();
 
     public Representante() {

@@ -33,6 +33,8 @@ public class RepresentanteService {
         representante.setEmail(dto.email());
         representante.setTelefone(dto.telefone());
 
+        representante.setAdministradora(administradora);
+
         representanteRepository.save(representante);
     }
 

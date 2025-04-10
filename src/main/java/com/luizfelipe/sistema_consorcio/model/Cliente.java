@@ -24,6 +24,12 @@ public class Cliente {
     @JoinColumn(name = "vendedor_id")
     private Vendedor vendedor;
 
+    @ManyToOne
+    @JoinColumn(name = "grupo_id")
+    private Grupo grupo;
+
+
+
     public Cliente (){
 
     }
@@ -115,5 +121,13 @@ public class Cliente {
 
     public void setVendedor(Vendedor vendedor) {
         this.vendedor = vendedor;
+    }
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 }

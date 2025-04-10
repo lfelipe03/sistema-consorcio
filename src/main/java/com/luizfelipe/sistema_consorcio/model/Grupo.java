@@ -2,6 +2,7 @@ package com.luizfelipe.sistema_consorcio.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,19 +12,22 @@ public class Grupo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private int numeroGrupo;
 
     private int limiteCotas;
 
-    @OneToMany(mappedBy = "grupo", cascade = CascadeType.ALL)
-    private List<Cota> cotas;
+    @OneToMany(mappedBy = "grupo")
+    private List<Cota> cotas = new ArrayList<>();
+
+    @OneToMany(mappedBy = "grupo")
+    private List<Contrato> contratos = new ArrayList<>();
 
     public Grupo() {
     }
 
-    public Grupo(Long id, String nome, List<Cota> cotas, int limiteCotas) {
+    public Grupo(Long id, int numeroGrupo, List<Cota> cotas, int limiteCotas) {
         this.id = id;
-        this.nome = nome;
+        this.numeroGrupo = numeroGrupo;
         this.cotas = cotas;
         this.limiteCotas = limiteCotas;
     }
@@ -36,12 +40,12 @@ public class Grupo {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public int getNumeroGrupo() {
+        return numeroGrupo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNumeroGrupo(int numeroGrupo) {
+        this.numeroGrupo = numeroGrupo;
     }
 
     public List<Cota> getCotas() {
@@ -58,5 +62,13 @@ public class Grupo {
 
     public void setLimiteCotas(int limiteCotas) {
         this.limiteCotas = limiteCotas;
+    }
+
+    public List<Contrato> getContratos() {
+        return contratos;
+    }
+
+    public void setContratos(List<Contrato> contratos) {
+        this.contratos = contratos;
     }
 }

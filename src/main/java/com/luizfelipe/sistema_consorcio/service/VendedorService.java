@@ -24,7 +24,7 @@ public class VendedorService {
         Vendedor vendedor = new Vendedor();
 
         Representante representante = representanteRepository.findById(dto.representanteId())
-                .orElseThrow(() -> new RuntimeException("Administradora nao encontrada"));
+                .orElseThrow(() -> new RuntimeException("Representante não encontrado"));
 
         vendedor.setNome(dto.nome());
         vendedor.setCpf(dto.cpf());

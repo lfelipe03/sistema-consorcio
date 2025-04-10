@@ -27,7 +27,6 @@ public class ClienteService {
         Vendedor vendedor = vendedorRepository.findById(dto.vendedorId()).
                 orElseThrow(() -> new RuntimeException("Vendedor nao encontrado"));
 
-
         cliente.setNome(dto.nome());
         cliente.setCpf(dto.cpf());
         cliente.setRg(dto.rg());

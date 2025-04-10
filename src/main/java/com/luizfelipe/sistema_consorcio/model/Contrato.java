@@ -1,18 +1,39 @@
 package com.luizfelipe.sistema_consorcio.model;
 
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
 import java.util.Date;
 
 public class Contrato {
+
     private String idContrato;
-    private Cliente cliente;
-    private Vendedor vendedor;
-    private Planos plano;
     private Date dataInicio;
     private Date dataTermino;
-    private String status; // "Ativo", "Finalizado", "Cancelado"
+    private String status; //
     private int parcelasPagas;
     private double valorTotal;
     private String formaPagamento;
+    @ManyToOne
+    @JoinColumn(name = "plano_id")
+    private Planos plano;
+
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Vendedor vendedor;
+
+    @ManyToOne
+    @JoinColumn(name = "vendedor_id")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "grupo_id")
+    private Grupo grupo;
+
+    @OneToOne
+    @JoinColumn(name = "cota_id")
+    private Cota cota;
 
     public Contrato(String idContrato, Cliente cliente, Vendedor vendedor, Planos plano, Date dataInicio, String formaPagamento) {
         this.idContrato = idContrato;
@@ -28,7 +49,6 @@ public class Contrato {
 
     }
 
-    // Getters e Setters
     public String getIdContrato() {
         return idContrato;
     }
@@ -108,5 +128,20 @@ public class Contrato {
     public void setFormaPagamento(String formaPagamento) {
         this.formaPagamento = formaPagamento;
     }
-    
+
+    public Grupo getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
+    }
+
+    public Cota getCota() {
+        return cota;
+    }
+
+    public void setCota(Cota cota) {
+        this.cota = cota;
+    }
 }
