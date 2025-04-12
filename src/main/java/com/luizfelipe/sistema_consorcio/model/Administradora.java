@@ -24,6 +24,9 @@ public class Administradora {
     @OneToMany(mappedBy = "administradora")
     private List<Representante> representantes = new ArrayList<>();
 
+    @OneToMany(mappedBy = "administradora")
+    private List<Grupo> grupos = new ArrayList<>();
+
 
     public Administradora() {
     }

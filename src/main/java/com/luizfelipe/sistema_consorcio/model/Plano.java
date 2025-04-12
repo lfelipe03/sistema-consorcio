@@ -4,13 +4,11 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Entity
-@Data
-public class Planos {
+public class Plano {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,18 +19,29 @@ public class Planos {
     private BigDecimal valorDeParcela;
     private Integer prazoMeses;
     private BigDecimal taxaDeAdministracao;
+    private BigDecimal saldoDevedor;
 
-    public Planos() {
+    public Plano() {
 
     }
 
-    public Planos(Long id, BigDecimal valorCartaDeCredito, String nome, BigDecimal valorDeParcela, Integer prazoMeses, BigDecimal taxaDeAdministracao) {
+
+    public Plano(Long id, String nome, BigDecimal valorCartaDeCredito, BigDecimal valorDeParcela, Integer prazoMeses, BigDecimal saldoDevedor, BigDecimal taxaDeAdministracao) {
         this.id = id;
-        this.valorCartaDeCredito = valorCartaDeCredito;
         this.nome = nome;
+        this.valorCartaDeCredito = valorCartaDeCredito;
         this.valorDeParcela = valorDeParcela;
         this.prazoMeses = prazoMeses;
+        this.saldoDevedor = saldoDevedor;
         this.taxaDeAdministracao = taxaDeAdministracao;
+    }
+
+    public BigDecimal getSaldoDevedor() {
+        return saldoDevedor;
+    }
+
+    public void setSaldoDevedor(BigDecimal saldoDevedor) {
+        this.saldoDevedor = saldoDevedor;
     }
 
     public Long getId() {

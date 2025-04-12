@@ -1,4 +1,5 @@
 package com.luizfelipe.sistema_consorcio.model;
+import com.luizfelipe.sistema_consorcio.enums.StatusCota;
 import jakarta.persistence.*;
 
 @Entity
@@ -10,7 +11,8 @@ public class Cota {
 
     private int numero;
 
-    private boolean contemplada;
+    @Enumerated(EnumType.STRING)
+    private StatusCota status;
 
     @ManyToOne
     @JoinColumn(name = "grupo_id")
@@ -26,11 +28,11 @@ public class Cota {
     public Cota() {
     }
 
-    public Cota(Long id, int numero, boolean contemplada, Grupo grupo, Cliente cliente, Contrato contrato) {
+    public Cota(Long id, int numero, Grupo grupo, StatusCota status, Cliente cliente, Contrato contrato) {
         this.id = id;
         this.numero = numero;
-        this.contemplada = contemplada;
         this.grupo = grupo;
+        this.status = status;
         this.cliente = cliente;
         this.contrato = contrato;
     }
@@ -49,14 +51,6 @@ public class Cota {
 
     public void setNumero(int numero) {
         this.numero = numero;
-    }
-
-    public boolean isContemplada() {
-        return contemplada;
-    }
-
-    public void setContemplada(boolean contemplada) {
-        this.contemplada = contemplada;
     }
 
     public Grupo getGrupo() {
@@ -81,6 +75,14 @@ public class Cota {
 
     public void setContrato(Contrato contrato) {
         this.contrato = contrato;
+    }
+
+    public StatusCota getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusCota status) {
+        this.status = status;
     }
 }
 

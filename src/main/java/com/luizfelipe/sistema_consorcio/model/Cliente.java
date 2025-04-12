@@ -1,5 +1,6 @@
 package com.luizfelipe.sistema_consorcio.model;
 
+import com.luizfelipe.sistema_consorcio.enums.Endereco;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

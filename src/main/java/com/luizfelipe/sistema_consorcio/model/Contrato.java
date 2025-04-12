@@ -1,23 +1,26 @@
 package com.luizfelipe.sistema_consorcio.model;
 
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import com.luizfelipe.sistema_consorcio.enums.StatusContrato;
+import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Contrato {
 
     private String idContrato;
-    private Date dataInicio;
-    private Date dataTermino;
-    private String status; //
+    private LocalDate dataInicio;
+    private LocalDate dataTermino;
+    @Enumerated(EnumType.STRING)
+    private StatusContrato status;
     private int parcelasPagas;
     private double valorTotal;
     private String formaPagamento;
     @ManyToOne
     @JoinColumn(name = "plano_id")
-    private Planos plano;
+    private Plano plano;
 
     @ManyToOne
     @JoinColumn(name = "vendedor_id")
@@ -35,18 +38,56 @@ public class Contrato {
     @JoinColumn(name = "cota_id")
     private Cota cota;
 
-    public Contrato(String idContrato, Cliente cliente, Vendedor vendedor, Planos plano, Date dataInicio, String formaPagamento) {
-        this.idContrato = idContrato;
-        this.cliente = cliente;
-        this.vendedor = vendedor;
-        this.plano = plano;
-        this.dataInicio = dataInicio;
-        this.formaPagamento = formaPagamento;
-        this.status = "Ativo";
+    private BigDecimal saldoDevedor;
+
+    public Contrato(Long grupoId) {
     }
 
-    public Contrato(Cliente cliente, Vendedor vendedor, Planos plano, Date dataInicio, String formaPagamento) {
+    public Contrato(String idContrato, LocalDate dataInicio, LocalDate dataTermino, StatusContrato status, int parcelasPagas, double valorTotal, String formaPagamento, Plano plano, Vendedor vendedor, Grupo grupo, Cota cota, Cliente cliente) {
+        this.idContrato = idContrato;
+        this.dataInicio = dataInicio;
+        this.dataTermino = dataTermino;
+        this.status = status;
+        this.parcelasPagas = parcelasPagas;
+        this.valorTotal = valorTotal;
+        this.formaPagamento = formaPagamento;
+        this.plano = plano;
+        this.vendedor = vendedor;
+        this.grupo = grupo;
+        this.cota = cota;
+        this.cliente = cliente;
+    }
 
+    public BigDecimal getSaldoDevedor() {
+        return saldoDevedor;
+    }
+
+    public void setSaldoDevedor(BigDecimal saldoDevedor) {
+        this.saldoDevedor = saldoDevedor;
+    }
+
+    public LocalDate getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDate dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDate getDataTermino() {
+        return dataTermino;
+    }
+
+    public void setDataTermino(LocalDate dataTermino) {
+        this.dataTermino = dataTermino;
+    }
+
+    public StatusContrato getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusContrato status) {
+        this.status = status;
     }
 
     public String getIdContrato() {
@@ -73,36 +114,12 @@ public class Contrato {
         this.vendedor = vendedor;
     }
 
-    public Planos getPlano() {
+    public Plano getPlano() {
         return plano;
     }
 
-    public void setPlano(Planos plano) {
+    public void setPlano(Plano plano) {
         this.plano = plano;
-    }
-
-    public Date getDataInicio() {
-        return dataInicio;
-    }
-
-    public void setDataInicio(Date dataInicio) {
-        this.dataInicio = dataInicio;
-    }
-
-    public Date getDataTermino() {
-        return dataTermino;
-    }
-
-    public void setDataTermino(Date dataTermino) {
-        this.dataTermino = dataTermino;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public int getParcelasPagas() {

@@ -2,6 +2,7 @@ package com.luizfelipe.sistema_consorcio.model;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,12 @@ public class Grupo {
 
     private int limiteCotas;
 
+    private LocalDate dataVencimento;
+    private LocalDate dataAssembleia;
+
+    @ManyToOne
+    private Administradora administradora;
+
     @OneToMany(mappedBy = "grupo")
     private List<Cota> cotas = new ArrayList<>();
 
@@ -25,11 +32,15 @@ public class Grupo {
     public Grupo() {
     }
 
-    public Grupo(Long id, int numeroGrupo, List<Cota> cotas, int limiteCotas) {
+    public Grupo(Long id, int limiteCotas, int numeroGrupo, LocalDate dataAssembleia, LocalDate dataVencimento, Administradora administradora, List<Cota> cotas, List<Contrato> contratos) {
         this.id = id;
-        this.numeroGrupo = numeroGrupo;
-        this.cotas = cotas;
         this.limiteCotas = limiteCotas;
+        this.numeroGrupo = numeroGrupo;
+        this.dataAssembleia = dataAssembleia;
+        this.dataVencimento = dataVencimento;
+        this.administradora = administradora;
+        this.cotas = cotas;
+        this.contratos = contratos;
     }
 
     public Long getId() {
@@ -70,5 +81,29 @@ public class Grupo {
 
     public void setContratos(List<Contrato> contratos) {
         this.contratos = contratos;
+    }
+
+    public LocalDate getDataVencimento() {
+        return dataVencimento;
+    }
+
+    public void setDataVencimento(LocalDate dataVencimento) {
+        this.dataVencimento = dataVencimento;
+    }
+
+    public LocalDate getDataAssembleia() {
+        return dataAssembleia;
+    }
+
+    public void setDataAssembleia(LocalDate dataAssembleia) {
+        this.dataAssembleia = dataAssembleia;
+    }
+
+    public Administradora getAdministradora() {
+        return administradora;
+    }
+
+    public void setAdministradora(Administradora administradora) {
+        this.administradora = administradora;
     }
 }
