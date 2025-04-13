@@ -7,5 +7,6 @@ public record PlanoDTO(
         BigDecimal valorCartaDeCredito,
         BigDecimal valorDeParcela,
         BigDecimal taxaDeAdministracao,
-        Integer prazoMeses
+        Integer prazoMeses,
+        BigDecimal saldoDevedor
 ) {}

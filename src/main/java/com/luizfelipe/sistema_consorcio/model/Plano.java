@@ -1,9 +1,6 @@
 package com.luizfelipe.sistema_consorcio.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
@@ -20,6 +17,10 @@ public class Plano {
     private Integer prazoMeses;
     private BigDecimal taxaDeAdministracao;
     private BigDecimal saldoDevedor;
+
+    @ManyToOne
+    @JoinColumn(name = "grupo_id")
+    private Grupo grupo;
 
     public Plano() {
 

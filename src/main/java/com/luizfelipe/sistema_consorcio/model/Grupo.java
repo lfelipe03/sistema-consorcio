@@ -29,18 +29,23 @@ public class Grupo {
     @OneToMany(mappedBy = "grupo")
     private List<Contrato> contratos = new ArrayList<>();
 
+
+    @OneToMany(mappedBy = "grupo")
+    private List<Plano> planos = new ArrayList<>();
+
     public Grupo() {
     }
 
-    public Grupo(Long id, int limiteCotas, int numeroGrupo, LocalDate dataAssembleia, LocalDate dataVencimento, Administradora administradora, List<Cota> cotas, List<Contrato> contratos) {
-        this.id = id;
-        this.limiteCotas = limiteCotas;
+    public Grupo(int numeroGrupo, int limiteCotas, Long id, LocalDate dataVencimento, LocalDate dataAssembleia, Administradora administradora, List<Cota> cotas, List<Contrato> contratos, List<Plano> planos) {
         this.numeroGrupo = numeroGrupo;
-        this.dataAssembleia = dataAssembleia;
+        this.limiteCotas = limiteCotas;
+        this.id = id;
         this.dataVencimento = dataVencimento;
+        this.dataAssembleia = dataAssembleia;
         this.administradora = administradora;
         this.cotas = cotas;
         this.contratos = contratos;
+        this.planos = planos;
     }
 
     public Long getId() {
@@ -105,5 +110,13 @@ public class Grupo {
 
     public void setAdministradora(Administradora administradora) {
         this.administradora = administradora;
+    }
+
+    public List<Plano> getPlanos() {
+        return planos;
+    }
+
+    public void setPlanos(List<Plano> planos) {
+        this.planos = planos;
     }
 }

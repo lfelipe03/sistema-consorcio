@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PlanoService {
 
@@ -22,15 +23,50 @@ public class PlanoService {
         plano.setPrazoMeses(planoDTO.prazoMeses());
         plano.setTaxaDeAdministracao(planoDTO.taxaDeAdministracao());
 
-        BigDecimal saldoDevedor = planoDTO.valorCartaDeCredito().add(planoDTO.taxaDeAdministracao());
+        BigDecimal taxaPercentual = planoDTO.taxaDeAdministracao().divide(new BigDecimal(100));
+        BigDecimal valorTaxa = planoDTO.valorCartaDeCredito().multiply(taxaPercentual);
+        BigDecimal saldoDevedor = planoDTO.valorCartaDeCredito().add(valorTaxa);
+
         plano.setSaldoDevedor(saldoDevedor);
 
         return planoRepository.save(plano);
     }
 
-    public List<Plano> listarPlanos() {
-        return planoRepository.findAll();
+    public List<PlanoDTO> listarPlanos() {
+        List<Plano> planos = planoRepository.findAll();
+
+        return planos.stream()
+                .map(p -> new PlanoDTO(
+                        p.getNome(),
+                        p.getValorCartaDeCredito(),
+                        p.getValorDeParcela(),
+                        p.getTaxaDeAdministracao(),
+                        p.getPrazoMeses(),
+                        p.getSaldoDevedor()
+                )).collect(Collectors.toList());
     }
 
+    public List<Plano> criarVariosPlanos(List<PlanoDTO> planoDTO) {
+        List<Plano> planos = planoDTO.stream()
+                .map(dto -> {
+                    Plano plano = new Plano();
+                    plano.setNome(dto.nome());
+                    plano.setValorCartaDeCredito(dto.valorCartaDeCredito());
+                    plano.setValorDeParcela(dto.valorDeParcela());
+                    plano.setPrazoMeses(dto.prazoMeses());
+                    plano.setTaxaDeAdministracao(dto.taxaDeAdministracao());
+
+                    BigDecimal taxaPercentual = dto.taxaDeAdministracao().divide(new BigDecimal(100));
+                    BigDecimal valorTaxa = dto.valorCartaDeCredito().multiply(taxaPercentual);
+                    BigDecimal saldoDevedor = dto.valorCartaDeCredito().add(valorTaxa);
+
+                    plano.setSaldoDevedor(saldoDevedor);
+
+                    return plano;
+                })
+                .collect(Collectors.toList());
+
+        return planoRepository.saveAll(planos);
+    }
 
 }
